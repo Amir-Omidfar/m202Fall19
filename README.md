@@ -13,3 +13,11 @@ Also, because of the implementation of screen-reader software into mobile device
 2. [Nokia e-sense earables ](http://www.esense.io)
 3. [Indoor Positioning for Visually Impaired People Based on Smartphones](https://link.springer.com/chapter/10.1007/978-3-319-08596-8_68) 
 4. [Analysis of a UWB Indoor Positioning System Based on Received Signal Strength](https://www.researchgate.net/profile/Klaus_Witrisal/publication/224699315_Analysis_of_a_UWB_Indoor_Positioning_System_Based_on_Received_Signal_Strength/links/5714ad0508aeff315ba36700.pdf)
+
+---
+### Objectives 
+### Discussion of related works (papers and websites)
+### methodology and experimental validation plan
+### Work split between the different team members :
+1. **Riyya** : Android application development for using earables
+2. **Amir and Julian** : UWB system setup
