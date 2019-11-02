@@ -31,9 +31,9 @@ Also, because of the implementation of screen-reader software into mobile device
   1.  Define a user study to collect data from visually impaired or blindfolded individuals to test out the system performance.
 
 ## Work split between the different team members :
-1. **Riyya** :  Android application development for using Earables and getting feedback from Earables
-2. **Amir** : UWB system setup, overall system integration
-3. **Julian** :  UWB system setup, support on Android app development
+  1. **Riyya** :  Android application development for using Earables and getting feedback from Earables
+  2. **Amir** : UWB system setup, overall system integration
+  3. **Julian** :  UWB system setup, support on Android app development
 
 
 ---
