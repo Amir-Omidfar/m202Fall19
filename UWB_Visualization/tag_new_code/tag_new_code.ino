@@ -9,10 +9,10 @@
 
 // Connect to the WiFi
 //const char* ssid = "NETGEAR99";
-char* ssid = "lemur";
+const char* ssid = "lemur";
 //const char* ssid = "xixiHao";
 //const char* password = "19930903";
-char* password = "lemur9473";
+const char* password = "lemur9473";
 //const char* password = "3108807519";
 const char* mqtt_server = "192.168.1.40";
 const char* userLoc = "userLoc";
@@ -96,7 +96,7 @@ void sendData(const char* topic) {
   mydata1 += userName;
   mydata1 += " ";
   mydata1 += String(p_pos->qf);
-  mydata1.toCharArray(locCharData, 80); //why char array
+  mydata1.toCharArray(locCharData, 80);
   
   client.publish(topic, locCharData);
   free(rx_data);
@@ -170,11 +170,19 @@ void setup()
   Wire.begin(); //i2c scan 
   Serial.begin(9600);
   myserial.begin(115200);
+  
   client.setServer(mqtt_server, 1883);
   setup_wifi();
+  //setup_wifi();
   client.setCallback(callback);
   delay(3000);
-
+  /*
+  if (!bno.begin())
+  {
+    Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+    while (1);
+  }*/
+  
   pinMode(13, OUTPUT);
   digitalWrite(13, LOW);
   delay(1000);
@@ -188,11 +196,76 @@ void loop()
   if (!client.connected()) {
     reconnect();
   }
+  /*
+  byte error, address;
+  int nDevices;
+ 
+  Serial.println("Scanning...");
+ 
+  nDevices = 0;
+  for(address = 1; address < 127; address++ )
+  {
+    // The i2c_scanner uses the return value of
+    // the Write.endTransmisstion to see if
+    // a device did acknowledge to the address.
+    //Wire.beginTransmission(address);
+    Wire.requestFrom(address,2);
+    //Serial.println(address,HEX);
+    //error = Wire.endTransmission(true);
+ 
+    if (error == 0)
+    {
+      Serial.print("I2C device found at address 0x");
+      if (address<16)
+        Serial.print("0");
+      Serial.print(address,HEX);
+      Serial.println("  !");
+ 
+      nDevices++;
+    }
+    else if (error==4)
+    {
+      Serial.print("Unknown error at address 0x");
+      if (address<16)
+        Serial.print("0");
+      Serial.println(address,HEX);
+    }    
+  }
+  if (nDevices == 0){
+    Serial.println("No I2C devices found\n");
+    Serial.println(error);
+  }
+  else{
+    Serial.println("done\n");
+  }
+  delay(5000);  
+  //i2c scanner
+  */
   
   client.loop();
   //char * charData1 = (char*)malloc(50);
   //client.publish("publishing",charData1);
-  
+  /*
+  imu::Vector<3> acc = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
+  imu::Vector<3> gyros = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
+  String myimudata = "";
+  char * charData1 = (char*)malloc(50);
+  myimudata += String(acc.x());
+  myimudata += " ";
+  myimudata += String(acc.y());
+  myimudata += " ";
+  myimudata += String(acc.z());
+  myimudata += " ";
+  myimudata += String(gyros.x());
+  myimudata += " ";
+  myimudata += String(gyros.y());
+  myimudata += " ";
+  myimudata += String(gyros.z());
+  myimudata += " ";
+  myimudata += userName;
+  myimudata.toCharArray(charData1, 50);
+
+  client.publish("data", charData1);*/
   sendData(userLoc);
   //free(charData1);
   delay(100);

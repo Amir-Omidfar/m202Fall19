@@ -8,9 +8,9 @@
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
 
-const char* ssid = "lemur";                   // wifi ssid
-const char* password =  "lemur9473";         // wifi password
-const char* mqttServer = "192.168.1.40";    // IP adress Raspberry Pi
+const char* ssid = "Apt329";                   // wifi ssid
+const char* password =  "4243201550";         // wifi password
+const char* mqttServer = "192.168.1.8";    // IP adress Raspberry Pi
 const int mqttPort = 1883;
 const char* mqttUser = "Whereiot";      // if you don't have MQTT Username, no need input
 const char* mqttPassword = "joeyandnic";  // if you don't have MQTT Password, no need input
@@ -94,23 +94,23 @@ void loop() {
   bno.getEvent(&event);
   
   /* Display the floating point data */
-  Serial.print("Orientation parameters:");
+  Serial.print("X: ");
   Serial.print(event.orientation.x, 4);
-  Serial.print(" ");
+  Serial.print("\tY: ");
   Serial.print(event.orientation.y, 4);
-  Serial.print(" ");
+  Serial.print("\tZ: ");
   Serial.print(event.orientation.z, 4);
   Serial.println("");
 
-  dtostrf(event.orientation.x,3,2,x_dir);
-  dtostrf(event.orientation.y,3,2,y_dir);
-  dtostrf(event.orientation.z,3,2,z_dir);
+  dtostrf(event.orientation.x,3,4,x_dir);
+  dtostrf(event.orientation.y,3,4,y_dir);
+  dtostrf(event.orientation.z,3,4,z_dir);
 
-  total_dir.concat("Orientation parameters: ");
+  total_dir.concat("\nX:");
   total_dir.concat(x_dir);
-  total_dir.concat(" ");
+  total_dir.concat("\tY:");
   total_dir.concat(y_dir);
-  total_dir.concat(" ");
+  total_dir.concat("\tZ:");
   total_dir.concat(z_dir);
   
   client.publish("esp8266",total_dir.c_str());
