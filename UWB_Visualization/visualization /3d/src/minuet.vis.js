@@ -189,7 +189,7 @@ findNearestNode = function(list,location){
 
 
 MINUET.updateCurPoint = function(rawData){
-    //console.log("got: "+ rawData);
+    console.log("got: "+ rawData);
 
     if (rawData.includes('raspberrypi') == true) {
 
@@ -208,10 +208,10 @@ MINUET.updateCurPoint = function(rawData){
       data_stream[3] = singleData;
       x = -(Number(data_stream[0][0])+Number(data_stream[1][0])+Number(data_stream[2][0])+Number(data_stream[3][0]))/4;
       y = (Number(data_stream[0][1])+Number(data_stream[1][1])+Number(data_stream[2][1])+Number(data_stream[3][1]))/4;
-    //var z = (Number(data_stream[0][2])+Number(data_stream[1][2])+Number(data_stream[2][2])+Number(data_stream[3][2]))/4;
+      z = (Number(data_stream[0][2])+Number(data_stream[1][2])+Number(data_stream[2][2])+Number(data_stream[3][2]))/4;
     //var proxyZ = Number(singleData[2]);
     //var proxyZ = Number(singleData[2])-Math.sin((pitch * Math.PI) / 180)*MINUET.armLength;
-      z = MINUET.hardcodedZ;
+      //z = MINUET.hardcodedZ;
       
     }
     if (rawData.includes('Orientation') == true){
@@ -227,18 +227,18 @@ MINUET.updateCurPoint = function(rawData){
     if (yaw < 0){
       yaw += 360;
     }
-
+    /*
     console.log("x: "+ x);
     console.log("y: "+ y);
     console.log("z: "+ z);
     console.log("pitch: "+ pitch);
     console.log("yaw: "+ yaw);
     console.log("roll: "+ roll);
-    
+    */
 
 
   MINUET.dataLogs = {
-          position: new THREE.Vector3(x, y, z),
+          position: new THREE.Vector3(x, z, y),
           orientation: new THREE.Vector3(
             -Math.sin((360-yaw * Math.PI) / 180) *
               Math.cos((pitch * Math.PI) / 180),
@@ -269,6 +269,11 @@ MINUET.updateCurPoint = function(rawData){
           }
           path_counter++;
         }
+  console.log("x: "+ x);
+  console.log("y: "+ y);
+  console.log("z: "+ z);
+  console.log(MINUET.dataLogs.orientation);
+  
 }
 
 
