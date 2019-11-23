@@ -7,9 +7,9 @@ room:
   lz: 3980
 anchors:
   -
-    x: 1100
+    x: 1150
     y: 0000
-    z: 0350
+    z: 0330
   -
     x: 0000
     y: 1900
@@ -37,7 +37,7 @@ anchors:
   -
     x: 5680
     y: 1540
-    z: 1010
+    z: 1980
 
 bgColor: 0xf2f0f0
 gridColor: 0x888888
