@@ -208,10 +208,10 @@ MINUET.updateCurPoint = function(rawData){
       data_stream[3] = singleData;
       x = -(Number(data_stream[0][0])+Number(data_stream[1][0])+Number(data_stream[2][0])+Number(data_stream[3][0]))/4;
       y = (Number(data_stream[0][1])+Number(data_stream[1][1])+Number(data_stream[2][1])+Number(data_stream[3][1]))/4;
-      z = (Number(data_stream[0][2])+Number(data_stream[1][2])+Number(data_stream[2][2])+Number(data_stream[3][2]))/4;
+      //z = (Number(data_stream[0][2])+Number(data_stream[1][2])+Number(data_stream[2][2])+Number(data_stream[3][2]))/4;
     //var proxyZ = Number(singleData[2]);
     //var proxyZ = Number(singleData[2])-Math.sin((pitch * Math.PI) / 180)*MINUET.armLength;
-      //z = MINUET.hardcodedZ;
+      z = MINUET.hardcodedZ;
       
     }
     if (rawData.includes('Orientation') == true){

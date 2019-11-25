@@ -15,7 +15,7 @@ const char* mqtt_server = "192.168.1.8";                 //!!!!!!!!!!!!!!!!!!!!!
 WiFiClient espClient;
 PubSubClient client(espClient);
  
-const byte ledPin = D12; 
+const byte ledPin =2; 
  
 void LEDChange() {
   

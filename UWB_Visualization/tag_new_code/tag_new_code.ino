@@ -1,11 +1,14 @@
 #include <EEPROM.h>
-#include <WiFi.h>
+#include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 #include <QueueArray.h>
 #include <Wire.h> //i2c scan
+#include <PubSubClient.h>
+
+
 
 // Connect to the WiFi
 //const char* ssid = "NETGEAR99";
@@ -243,9 +246,10 @@ void loop()
   */
   
   client.loop();
-  //char * charData1 = (char*)malloc(50);
+  
+  
   //client.publish("publishing",charData1);
-  /*
+  
   imu::Vector<3> acc = bno.getVector(Adafruit_BNO055::VECTOR_LINEARACCEL);
   imu::Vector<3> gyros = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
   String myimudata = "";
@@ -265,7 +269,7 @@ void loop()
   myimudata += userName;
   myimudata.toCharArray(charData1, 50);
 
-  client.publish("data", charData1);*/
+  client.publish("data", charData1);
   sendData(userLoc);
   //free(charData1);
   delay(100);
