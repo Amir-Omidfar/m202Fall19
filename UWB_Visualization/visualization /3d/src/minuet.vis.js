@@ -80,6 +80,7 @@ const list = new LinkedList();
 
 //  ready function to initialize the vis
 //
+
 $(document).ready(function() {
   // load configuration and data
 

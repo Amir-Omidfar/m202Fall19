@@ -53,3 +53,15 @@ Also, because of the implementation of screen-reader software into mobile device
 | 10    |  Final details and tests. | |
 | 11    |  Presentation | | 
 
+
+
+---
+## Midterm Presentation
+[Midterm Presentation Slides](https://github.com/Amir-Omidfar/m202Fall19/blob/master/m202MidPointPresentation.pdf)
+
+
+
+
+
+
+
