@@ -19,6 +19,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import org.altbeacon.beacon.AltBeacon;
 import org.altbeacon.beacon.Beacon;
@@ -39,10 +40,11 @@ public class RangingActivity extends Activity implements BeaconConsumer {
     private BeaconManager beaconManager;
     private BackgroundPowerSaver backgroundPowerSaver;
     private VibrationEffect vb;
-    private long[] timings = {400, 10};
+    private long[] timings = {10, 10};
     private boolean end = false;
     Vibrator vibrator;
     private GestureDetectorCompat mDetector;
+    private TextView rssi_txt;
 
 
 
@@ -54,9 +56,10 @@ public class RangingActivity extends Activity implements BeaconConsumer {
         beaconManager.getBeaconParsers().clear();
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
-        backgroundPowerSaver = new BackgroundPowerSaver(this);
+        //backgroundPowerSaver = new BackgroundPowerSaver(this);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
+        rssi_txt = (TextView) findViewById(R.id.textview);
 
     }
 
@@ -113,14 +116,14 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
 
 
-        if(abs(rssi) > 70)
+        if(abs(rssi) > 60)
             amps[0] = amps[1] = 0;
 
-        else if(abs(rssi) < 46)
+        else if(abs(rssi) < 35)
             amps[0] = amps[1] = 255;
 
         else
-            amps[0] = amps[1] = (int) (528531.328*Math.exp(-0.1697*abs(rssi)));
+            amps[0] = amps[1] = (int) (-10.2*abs(rssi) + 612);
 
         return amps;
 
@@ -128,15 +131,17 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
     @Override
     public void onBeaconServiceConnect() {
-
         beaconManager.removeAllRangeNotifiers();
         RangeNotifier rangeNotifier = new RangeNotifier() {
             @Override
             public void didRangeBeaconsInRegion(Collection<Beacon> beacons, Region region) {
-                Log.i("beacon", "ahy2");
+
                 if (beacons.size() > 0) {
                     //Log.d(TAG, "didRangeBeaconsInRegion called with beacon count:  "+beacons.size());
                     Beacon firstBeacon = beacons.iterator().next();
+                    Log.i("beacon", Integer.toString(firstBeacon.getRssi()));
+                    rssi_txt.setText(String.format("Distance: %.2f m", Beacon.getDistanceCalculator().calculateDistance(firstBeacon.getTxPower(), firstBeacon.getRssi())));
+
                     //logToDisplay("The first beacon " + firstBeacon.toString() + " is about " + firstBeacon.getDistance() + " meters away. " + firstBeacon.getRssi() + "  " + firstBeacon.getRunningAverageRssi());
                     if (vibrator.hasVibrator()) {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -152,8 +157,8 @@ public class RangingActivity extends Activity implements BeaconConsumer {
 
             beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", Identifier.parse("426C7565-4368-6172-6D42-6561636F6E73"), Identifier.parse("3838"), Identifier.parse("4949")));
             beaconManager.addRangeNotifier(rangeNotifier);
-            beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", Identifier.parse("426C7565-4368-6172-6D42-6561636F6E73"), Identifier.parse("3838"), Identifier.parse("4949")));
-            beaconManager.addRangeNotifier(rangeNotifier);
+            //beaconManager.startRangingBeaconsInRegion(new Region("myRangingUniqueId", Identifier.parse("426C7565-4368-6172-6D42-6561636F6E73"), Identifier.parse("3838"), Identifier.parse("4949")));
+            //beaconManager.addRangeNotifier(rangeNotifier);
         } catch (RemoteException e) {   }
     }
 

@@ -23,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -34,6 +35,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,8 +51,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
     TextToSpeech t1;
-    EditText ed1;
-    Button b1;
+    TextView location_text;
     HashMap<String, String> map;
     private final String UTTERANCE_ID = "Utterance_Id";
     private final int BEACON_SENSE = 12;
@@ -59,21 +60,32 @@ public class MainActivity extends AppCompatActivity  {
 
     private static final int PERMISSION_REQUEST_FINE_LOCATION = 1;
     private static final int PERMISSION_REQUEST_BACKGROUND_LOCATION = 2;
-    boolean starting = true, command_wait = false, add_flag = false;
+    boolean starting = true, command_wait = false, add_flag = false, double_tap = false;
     private final int REQ_CODE_SPEECH_INPUT = 100;
     private final String DESTINATION_STRING = "Please specify a destination or command";
     private final String COMMAND_STRING = "Please specify a command";
     private final String NAME_LOCATION = "Please specify a location name";
     JSONObject json_dest;
     private GestureDetectorCompat mDetector;
+    private List<String> locations;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ed1 = (EditText)findViewById(R.id.editText);
-        b1 = (Button)findViewById(R.id.button);
+
+
+
+        location_text = (TextView) findViewById(R.id.location);
+
+        locations = new ArrayList<String>();
+        locations.add("microwave");
+        locations.add("TV");
+        locations.add("monitor");
+        locations.add("printer");
+        locations.add("door");
+        locations.add("table");
 
 
         json_dest = new JSONObject();
@@ -81,13 +93,6 @@ public class MainActivity extends AppCompatActivity  {
         map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID);
         mDetector = new GestureDetectorCompat(this, new MyGestureListener());
 
-        b1.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                String toSpeak = ed1.getText().toString();
-                t1.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
-            }
-        });
 
 
 
@@ -140,7 +145,6 @@ public class MainActivity extends AppCompatActivity  {
                                 } else {
                                     //t1.speak("TTS is ready", TextToSpeech.QUEUE_FLUSH, null);
                                 }
-
                                 t1.setSpeechRate(1);
                                 t1.setPitch(1);
                                 t1.setOnUtteranceProgressListener(new SpeechUtteranceListener());
@@ -184,37 +188,18 @@ public class MainActivity extends AppCompatActivity  {
 
                     if (!add_flag) {
                         if (!command_wait) {
-                            if (result.get(0).contains("microwave")) {
-                                starting = false;
-                                json_dest.put("place", "microwave");
-                                ConsultaWeb cw = new ConsultaWeb(getApplicationContext(), json_dest);
-                                cw.execute();
-                                return;
-                            } else if (result.get(0).contains("monitor")) {
-                                starting = false;
-                                json_dest.put("place", "monitor");
-                                ConsultaWeb cw = new ConsultaWeb(getApplicationContext(), json_dest);
-                                cw.execute();
-                                return;
-                            } else if (result.get(0).contains("printer")) {
-                                starting = false;
-                                json_dest.put("place", "printer");
-                                ConsultaWeb cw = new ConsultaWeb(getApplicationContext(), json_dest);
-                                cw.execute();
-                                return;
-                            } else if (result.get(0).contains("TV")) {
-                                starting = false;
-                                json_dest.put("place", "tv");
-                                ConsultaWeb cw = new ConsultaWeb(getApplicationContext(), json_dest);
-                                cw.execute();
-                                return;
-                            } else if (result.get(0).contains("door")) {
-                                starting = false;
-                                json_dest.put("place", "door");
-                                ConsultaWeb cw = new ConsultaWeb(getApplicationContext(), json_dest);
-                                cw.execute();
-                                return;
+                            for(String loc : locations) {
+                                if (result.get(0).contains(loc)) {
+                                    starting = false;
+                                    json_dest.put("place", loc);
+                                    location_text.setText("Going to " + loc);
+                                    ConsultaWeb cw = new ConsultaWeb(getApplicationContext(), json_dest);
+                                    cw.execute();
+                                    return;
+                                }
                             }
+
+
                         }
 
                         if (result.get(0).contains("add")) { //specify name
@@ -299,13 +284,13 @@ public class MainActivity extends AppCompatActivity  {
         public boolean onDoubleTap(MotionEvent event) {
             Log.d(DEBUG_TAG, "onDoubleTap: " + event.toString());
             if(! starting) {
-                while (t1.isSpeaking());
                 t1.speak(COMMAND_STRING, TextToSpeech.QUEUE_FLUSH, map);
                 command_wait = true;
+                double_tap = true;
             }
             else
                 t1.speak(DESTINATION_STRING, TextToSpeech.QUEUE_FLUSH, map);
-
+            double_tap = true;
             return true;
         }
 
@@ -371,41 +356,58 @@ public class MainActivity extends AppCompatActivity  {
             if(success != null && ! success.isEmpty() && ! command_wait) {
                 Log.i("onPostExecute", success);
                 //taskCompletionResult(success);
-                try {
-                    JSONObject json = new JSONObject(success);
 
+                if(success.equals("timeout"))
+                    t1.speak("Connection timeout. Trying to reconnect", TextToSpeech.QUEUE_FLUSH, map);
+                else {
                     try {
-                        t1.speak(json.getString("linear"), TextToSpeech.QUEUE_FLUSH, map);
+                        JSONObject json = new JSONObject(success);
+
+                        try {
+                            t1.speak(json.getString("linear"), TextToSpeech.QUEUE_FLUSH, map);
+                        } catch (JSONException e) {
+                        }
+
+
+                        try {
+                            t1.speak(json.getString("angular"), TextToSpeech.QUEUE_FLUSH, map);
+                            //Log.i("que", Boolean.toString(t1.isSpeaking()));
+
+                        } catch (JSONException e) {
+                        }
+
+                        try {
+                            t1.speak(json.getString("end"), TextToSpeech.QUEUE_FLUSH, null);
+                            Intent myIntent = new Intent(getApplicationContext(), RangingActivity.class);
+                            location_text.setText("");
+                            startActivityForResult(myIntent, BEACON_SENSE);
+                        } catch (JSONException e) {
+                        }
+
                     } catch (JSONException e) {
                     }
-
-
-                    try {
-                        t1.speak(json.getString("angular"), TextToSpeech.QUEUE_FLUSH, map);
-                        //Log.i("que", Boolean.toString(t1.isSpeaking()));
-
-                    } catch (JSONException e) {
-                    }
-
-                    try {
-                        t1.speak(json.getString("end"), TextToSpeech.QUEUE_FLUSH, null);
-                        Intent myIntent = new Intent(getApplicationContext(), RangingActivity.class);
-                        startActivityForResult(myIntent, BEACON_SENSE);
-                    } catch (JSONException e) {
-                    }
-
-                } catch (JSONException e) {
                 }
             } else {
                 if(add_flag) {
+
+                    try {
+                        locations.add(json.get("add").toString());
+                    }catch(Exception e)
+                    {}
+
                     if(command_wait)
                         t1.speak(COMMAND_STRING, TextToSpeech.QUEUE_FLUSH, map);
                     else
                         t1.speak(DESTINATION_STRING, TextToSpeech.QUEUE_FLUSH, map);
                     add_flag = false;
+
                 }
-                else
-                    t1.speak("", TextToSpeech.QUEUE_FLUSH, map);
+                else {
+                    if(!double_tap)
+                        t1.speak("", TextToSpeech.QUEUE_FLUSH, map);
+                    else
+                        double_tap = false;
+                }
             }
 
         }
@@ -422,7 +424,7 @@ public class MainActivity extends AppCompatActivity  {
 
         @Override
         public void onDone(String utteranceId) {
-
+            Log.i("heeee", "hsysysysys");
             if(starting || command_wait){
                 askSpeechInput();
             }
