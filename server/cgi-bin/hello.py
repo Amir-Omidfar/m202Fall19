@@ -5,6 +5,7 @@ import paho.mqtt.client as mqtt
 import location as loc
 import cgi, cgitb, json
 import sys
+import csv
 
 #logging.basicConfig(filename='app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
 
@@ -13,15 +14,6 @@ userLocCounter = 0
 esp8266Counter = 0
 linearString = ""
 orientationString = ""
-
-places = {
-		'microwave': loc.Point(0.2,2.2),
-		'monitor': loc.Point(5.52, 0.82),
-		'tv': loc.Point(1.91, 0),
-		'printer': loc.Point(5.5,2.27),
-		'door': loc.Point(0.64, 0)
-}
-
 
 def display_data(data):
 	print('<html>')
@@ -90,17 +82,27 @@ linearCoord = linearString.split()
 x = float(linearCoord[0])/1000
 y = float(linearCoord[1])/1000
 
+
+places = {}
+
 if 'add' in loc_goal:
-	places[loc_goal['add']] = loc.Point(x,y)
+	with open('places.txt', mode='a') as csv_file:
+		fieldnames = ['name', 'x', 'y']
+		writer = csv.DictWriter(csv_file, fieldnames = fieldnames)
+		writer.writerow({'name': loc_goal['add'], 'x': str(x), 'y': str(y)})
+
 else:
+	with open('places.txt', mode='r') as csv_file:
+		csv_reader = csv.DictReader(csv_file)
+		for row in csv_reader:
+			places[row['name']] = loc.Point(float(row['x']), float(row['y']))
+		
 	#print("orientation: ", orientationString, file=sys.stderr)
 	orientationCoord = orientationString.split()
 	yaw = float(orientationCoord[2])
 
 
-	json_inst = loc.loc_instructions(loc.Point(x,y), yaw, places(loc_goal['place']))
+	json_inst = loc.loc_instructions(loc.Point(x,y), yaw, places[loc_goal['place']])
 
 	print(json_inst)
-
-
 

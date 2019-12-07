@@ -21,11 +21,12 @@ def clamp(n, smallest, largest): return max(smallest, min(n, largest)) # https:/
 
 def getNearestPointInPerimeter(obst,p): #https://stackoverflow.com/questions/20453545/how-to-find-the-nearest-point-in-the-perimeter-of-a-rectangle-to-a-given-point
 
+
 	l = min([obst[0].x, obst[1].x, obst[2].x, obst[3].x])
-	t = min([obst[0].y, obst[1].y, obst[2].y, obst[3].y])
+	t = max([obst[0].y, obst[1].y, obst[2].y, obst[3].y])
 	w = max([obst[0].x, obst[1].x, obst[2].x, obst[3].x])
-	h = max([obst[0].y, obst[1].y, obst[2].y, obst[3].y])
-	
+	h = min([obst[0].y, obst[1].y, obst[2].y, obst[3].y])
+	'''
 
 	r = l + w
 	b = t + h
@@ -38,6 +39,16 @@ def getNearestPointInPerimeter(obst,p): #https://stackoverflow.com/questions/204
 	dt = abs(y-t)
 	db = abs(y-b)
 	m = min(dl,dr,dt,db)
+
+	'''
+	print("x ", x, file=sys.stderr)
+	print("y ", y, file=sys.stderr)
+	print("r ", r, file=sys.stderr)
+	print("l ", l, file=sys.stderr)
+	print("w ", w, file=sys.stderr)
+	print("h ", h, file=sys.stderr)
+	print("t ", t, file=sys.stderr)
+	print("m ", m, file=sys.stderr)
 
 	if(m == dt):
 		return Point(x,t)
@@ -54,38 +65,51 @@ def area(p1, p2, p3):
                 p3.x * (p1.y - p2.y)) / 2.0) 
 
 def isPointInsideArea(p, obst): #https://www.geeksforgeeks.org/check-whether-given-point-lies-inside-rectangle-not/
-	
-	A = area(obst[0], obst[1], obst[2]) + area(obst[0], obst[3], obst[2])
+
+	A = area(obst[0], obst[1], obst[2]) + area(obst[1], obst[3], obst[2])
 	A1 = area(p,obst[0],obst[1])
-	A2 = area(p,obst[1],obst[2])
+	A2 = area(p,obst[1],obst[3])
 	A3 = area(p,obst[2],obst[3])
-	A4 = area(p,obst[0],obst[3])
-	
+	A4 = area(p,obst[0],obst[2])
+
+	#print("A = " + str(A) + " A1 " + str(A1) + " A2 " + str(A2) + " A3 " + str(A3) + " A4 " + str(A4) + " sum " + str(A1 + A2 + A3 + A4))
+
 	return (A == A1 + A2 + A3 + A4)
 
 
 def deg_to_rotate(position, path, start_p, yaw, i):
 
 	path_deg = math.atan2(position[path[i]].y - start_p.y, position[path[i]].x - start_p.x)*180/math.pi
-#	print("path_deg: ", path_deg)
+#	print("path_deg1: ", path_deg, file=sys.stderr)
 	if(path_deg < 0):
-		path_deg += 360;
+		path_deg += 360
 
+	#if(path_deg <= 180):
+	#	path_deg = 180 - path_deg
+	#elif(path_deg < 360):
+	#	path_deg = 360 - (path_deg - 180)
+
+	path_deg = 360 - path_deg
+	'''
 	if(path_deg <= 90):
-		path_deg = 90 - path_deg;
-	elif(path_deg < 180):
-		path_deg = 360 - (path_deg % 90)
+		#path_deg = 90 - path_deg;
+	#elif(path_deg < 180):
+		#path_deg = 360 - (path_deg % 90)
+		
 	elif(path_deg < 270):
 		path_deg = 270 - (path_deg % 90)
 	elif(path_deg < 360):
 		path_deg = 180 - (path_deg % 90)
+	'''
 	deg_diff = path_deg - yaw
 	if(deg_diff > 180):
 		deg_diff -= 360
 	elif(deg_diff < -180):
 		deg_diff += 360
 	
-	print("path_deg: ", str(path_deg),file=sys.stderr)
+	print("path_deg2: ", str(path_deg),file=sys.stderr)
+	print("deg_diff: ", str(deg_diff), file=sys.stderr)
+#	print("yaw: ", str(yaw), file=sys.stderr)
 	return deg_diff
 
 def heuristic(objective, node):
@@ -284,17 +308,15 @@ def extract_vertices(vertices):
 def loc_instructions(start_p, yaw, goal_p):
 	"""Función de menú de entrada para especificar el algoritmo a usar"""
 
-	print("start_p: ", str(start_p), file=sys.stderr)
+	print("start_p: " +  str(start_p) + " goal_p: " + str(goal_p), file=sys.stderr)
 #	print("goal_p:", goal_p)
 #	print("yaw:", yaw)
 	nodes = {"start", "0", "1", "2", "3", "goal"}
 	position = {}
-	position.update({"start": start_p})
 	position.update({"0": Point(1.25,1.15)})
 	position.update({"1": Point(4.72,0.88)})
 	position.update({"2": Point(1.3,2.3)})
 	position.update({"3": Point(4.72,2.1)})
-	position.update({"goal": goal_p})
 	beginning = "start"
 	end = "goal"
 	vertices_raw = "0|1|3.9 0|2|2.4 1|3|2.4 2|3|3.9"
@@ -302,6 +324,13 @@ def loc_instructions(start_p, yaw, goal_p):
 
 	if(isPointInsideArea(goal_p, table)):
 		goal_p = getNearestPointInPerimeter(table, goal_p)
+
+	if(isPointInsideArea(start_p, table)):
+		start_p = getNearestPointInPerimeter(table, start_p)
+
+	position.update({"start": start_p})
+	position.update({"goal": goal_p})
+	print("Now start_p: " + str(start_p) + " goal_p: " + str(goal_p), file=sys.stderr)
 
 	vertices_extra = nodes_visibles(position, vertices_sim, nodes, beginning, end)
 #	print("vertices_extra: ", vertices_extra)

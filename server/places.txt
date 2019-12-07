@@ -1,0 +1,7 @@
+name,x,y
+microwave,0.2,2.2
+monitor,5.52,0.82
+TV,1.91,0
+printer,5.5,2.27
+door,0.64,0.1
+table,2.0,2.0
