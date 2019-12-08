@@ -16,6 +16,7 @@ class Point:
 linear_margin = 0.4
 angle_margin = 30
 table = [Point(1.7,1.325),Point(1.73,2.125),Point(4.34,1.2),Point(4.38,2)]
+#table = [Point(1.25,1.15),Point(1.3,2.3),Point(4.72,0.88),Point(4.72,2.1)]
 
 def clamp(n, smallest, largest): return max(smallest, min(n, largest)) # https://stackoverflow.com/questions/4092528/how-to-clamp-an-integer-to-some-range
 
@@ -26,7 +27,7 @@ def getNearestPointInPerimeter(obst,p): #https://stackoverflow.com/questions/204
 	t = max([obst[0].y, obst[1].y, obst[2].y, obst[3].y])
 	w = max([obst[0].x, obst[1].x, obst[2].x, obst[3].x])
 	h = min([obst[0].y, obst[1].y, obst[2].y, obst[3].y])
-	'''
+	
 
 	r = l + w
 	b = t + h
@@ -49,7 +50,8 @@ def getNearestPointInPerimeter(obst,p): #https://stackoverflow.com/questions/204
 	print("h ", h, file=sys.stderr)
 	print("t ", t, file=sys.stderr)
 	print("m ", m, file=sys.stderr)
-
+	'''
+	
 	if(m == dt):
 		return Point(x,t)
 	elif(m == db):
@@ -315,7 +317,8 @@ def loc_instructions(start_p, yaw, goal_p):
 	position = {}
 	position.update({"0": Point(1.25,1.15)})
 	position.update({"1": Point(4.72,0.88)})
-	position.update({"2": Point(1.3,2.3)})
+	#position.update({"2": Point(1.3,2.3)})
+	position.update({"2": Point(1.2,2.4)})
 	position.update({"3": Point(4.72,2.1)})
 	beginning = "start"
 	end = "goal"
@@ -327,6 +330,18 @@ def loc_instructions(start_p, yaw, goal_p):
 
 	if(isPointInsideArea(start_p, table)):
 		start_p = getNearestPointInPerimeter(table, start_p)
+
+	
+	body = 0.25
+	if(yaw < 90):
+		start_p.y += body
+	elif(yaw < 180):
+		start_p.x += body
+	elif(yaw < 270):
+		start_p.y -= body
+	elif(yaw <= 360):
+		start_p.x -= body
+	
 
 	position.update({"start": start_p})
 	position.update({"goal": goal_p})
@@ -362,7 +377,7 @@ def loc_instructions(start_p, yaw, goal_p):
 		
 	deg_diff = deg_to_rotate(position, path, start_p, yaw, i+1)
 	
-	if(abs(deg_diff) > angle_margin):
+	if(abs(deg_diff) > angle_margin and not linear_done):
 		print_data = '"angular":"Rotate for ' + str(int(abs(deg_diff))) + ' degrees '
 		if(deg_diff > 0):
 			print_data += 'clockwise"'

@@ -20,7 +20,7 @@ def on_message(client, userdata, msg):
     #userLocCounter = 1
 #    elif(msg.topic == "esp8266" and not esp8266Counter):
 
-    if(msg.topic == "userLoc"): #"esp8266"):
+    if(msg.topic == "esp8266"):
         print(msg.topic+" "+str(msg.payload) + " " + str(userLocCounter))
 #    esp8266Counter = 1
     #if(userLocCounter and esp8266Counter):
