@@ -43,7 +43,7 @@
     text-decoration: none;
     line-height: 70px;
     padding: 22px 0;
-    text-transform: uppercase;
+    
 }
 
 .wrapper header.header .menu {
@@ -85,7 +85,7 @@
 }
 
 .wrapper section.bg-text-area .bg-text {
-    background-image: url(img/bg-iamges.jpg);
+    background-image: url(images/title5.png);
     background-size: 100% 100%;
     padding: 205px 280px;
 }
@@ -105,7 +105,7 @@
 .wrapper section.bg-text-area .bg-text p {
     color: #fff;
     font-family: Geometria;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 500;
     line-height: 33px;
     margin: 32px 0 0;
