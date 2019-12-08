@@ -16,11 +16,13 @@ def on_message(client, userdata, msg):
 #    if "userLoc" == "userLoc":
 #        userLocCounter = 1
 #    if(msg.topic == "userLoc" and not userLocCounter):
-    print(msg.topic+" "+str(msg.payload) + " " + str(userLocCounter))
-    userLocCounter = 1
+    #print(msg.topic+" "+str(msg.payload) + " " + str(userLocCounter))
+    #userLocCounter = 1
 #    elif(msg.topic == "esp8266" and not esp8266Counter):
-    print(msg.topic+" "+str(msg.payload) + " " + str(userLocCounter))
-    esp8266Counter = 1
+
+    if(msg.topic == "userLoc"): #"esp8266"):
+        print(msg.topic+" "+str(msg.payload) + " " + str(userLocCounter))
+#    esp8266Counter = 1
     #if(userLocCounter and esp8266Counter):
     #    client.disconnect()
 

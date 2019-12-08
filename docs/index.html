@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DirectMe</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="logo">
+                            <h2>M202_Fall19</h2>
+                            <h2>Final_Project</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="Home"class="menu">
+                            <ul>
+                                <!--<li class="active"><a href="#Home">Home</a></li>-->
+                                <li><a href="#Motivation">Motivation</a></li>
+                                <li><a href="#">Related Works</a></li>
+                                <li><a href="#System Overview">System Overview</a></li>
+                                <li><a href="#Android App Development">Android App Development</a></li>
+                                <li><a href="#">Demo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section class="bg-text-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="bg-text">
+                            <h3>DirectMe</h3>
+                            <p>DirectMe is an indoor navigation system for visually impaired people. Utilizing Ultra Wide Band technology and using android application interface through smartphones, we created a method of guiding the visually impaired in indoor places where GPS is not accessible.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="blog-post-area">
+            <div class="container">
+                <div class="row">
+                    <div class="blog-post-area-style">
+                            <div class="col-md-12">
+                                <div class="single-post-big">
+                                    <div class="big-image">
+                                        <img src="images/motivationPic.jpeg" alt="">
+                                    </div>
+                                    <div id="Motivation" class="big-text">
+                                        <h3>Motivation</h3>
+                                        <p>Autonomous navigation is a crucial component for visually impaired people. Outdoors, positioning based on ubiquitous signals is feasible; however, for indoors, no universal positioning solution does exist. Due to the remarkably broad bandwidth, ultra-wideband (UWB) signs offer a proper multipath resolution and allow positioning with sub-meter (10 centimeter) accuracy. Also, because of the implementation of screen-reader software into mobile devices, visually impaired people nowadays can easily use smartphones. Having these two elements in mind, we decided to come up with a method of guiding blind people in indoor places.</p>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+          <div class="pegination">
+
+             <div class="container">
+                <div class="row">
+                    <div class="blog-post-area-style">
+                            <div class="col-md-12">
+                                <div class="single-post-big">
+                                    <div id="System Overview" class="big-text">
+                                        <h3>System Overview</h3>
+                                        <p>The position of the user is localized using UWB technology.There are 6-8 UWB anchors places in different positions of our testing indoor environment. The positions of the anchors along with the dimensions of the testing room (x,y,z) are hard coded. Using the position of the anchors and arrival time of signals communicated between UWB tag and the anchors the technology allows us to calculate the user's position in the room. The wrist worn hardware prepared for the user, also has a 9 degree freedom absolute orientation sensor (<a href="https://learn.adafruit.com/adafruit-bno055-absolute-orientation-sensor/overview" target="_blank">BNO055</a>). Data recieved from this sensor let the system determine user's pose to correctly navigate him toward the desired destination. Pose and estimated position data are transmitted to our server using <a href="http://mqtt.org" target="_blank">MQTT</a> communication protocl. For the purpose of setting up MQTT connection our system uses a <a href="https://www.raspberrypi.org/products/raspberry-pi-zero-w/" target="_blank">raspberry pi zero w</a> as the broker. </p>
+                                    </div>
+                                    <div class="big-image">
+                                        <img src="images/systemOverview2.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pegination">
+
+             <div class="container">
+                <div class="row">
+                    <div class="blog-post-area-style">
+                            <div class="col-md-12">
+                                <div class="single-post-big">
+                                    <div id="Android App Development" class="big-text">
+                                        <h3>Android App Development</h3>
+                                        <p>Our application utilizes two key features: text to speech and speech to text conversion. The user would start his interaction by specifying what destination he is trying to reach. For instance: "Take me to Coffee Maker ..." .The server applies <a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target="_blank">A* search algorithm</a> to calculate the shortest possible path. The server then, knowing the user's current location, sends detailed and step by step commands guiding the user to the destination. The commands sent from the server are recieved at the user's (client's) end, converted to voice and played for the user. </p>
+                                    </div>
+                                    <div class="big-image">
+                                        <img src="images/androidAppDev.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+                
+
+        </section>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="footer-bg">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="footer-menu">
+                                        <ul>
+                                            
+                                            <li><a href="#Motivation">Motivation</a></li>
+                                            <li class="active"><a href="#Home">Related Works</a></li>
+                                            <li><a href="#System Overview">System Overview</a></li>
+                                            <li><a href="#Android App Development">Android App Development</a></li>
+                                            <li><a href="#">Demo</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="footer-icon">
+                                        <p><a href="https://www.linkedin.com/in/amirali-omidfar/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a><a href="https://github.com/Amir-Omidfar/m202Fall19" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></p>
+                                    </div>
+                                </div>
+                            </div> .
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/active.js"></script>
+</body>
+
+</html>
