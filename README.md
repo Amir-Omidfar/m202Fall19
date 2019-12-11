@@ -7,33 +7,33 @@
 Also, because of the implementation of screen-reader software into mobile devices, visually impaired people start using smartphones. While creating a navigation system for the blind, this project focuses on adding sensors such as IMU, in wearable form, for increasing the accuracy of UWB modules. Finally, e-sense technology, implemented in earables, provides haptic feedback in guiding the visually impaired.*** 
 
 ---
-## Objectives 
-* Improve an indoor localization system with 3d mapping/visualization that uses UWB modules 
-  1. Enhance the systems accuracy by using additional sensors (e.g IMU, … ). 
-* Develop an application to utilize the UWB mapping platform in guiding visually impaired individuals
-  1. Android app development
-  2. E-Sense Earables to be implemented and utilized by the user through the app
+## Overall Goal: 
+* Provide a voice command system to help blind people navigate in indoor locations 
+### Specific aims: 
+1. Implementation of an Ultra-wideband (UWB) real time localization system
+2. Calculation of shortest path from user’s location to destination
+3. Android app with speech recognition and text to speech synthesis
+4. Usage of bluetooth beacons to improve upon accuracy of the system
+5. Integration of the three subsystems via communication protocols
+
 
 ## Related works (papers and websites)
 1. [Minuet: Multimodal Interaction with an Internet of Things](http://www.guoanhong.com/papers/SUI19-Minuet.pdf)
 2. [Pozyx: Localization via UWB](https://www.pozyx.io)
-3. [Nokia e-sense earables ](http://www.esense.io)
-4. [Indoor Positioning for Visually Impaired People Based on Smartphones](https://link.springer.com/chapter/10.1007/978-3-319-08596-8_68) 
-5. [Analysis of a UWB Indoor Positioning System Based on Received Signal Strength](https://www.researchgate.net/profile/Klaus_Witrisal/publication/224699315_Analysis_of_a_UWB_Indoor_Positioning_System_Based_on_Received_Signal_Strength/links/5714ad0508aeff315ba36700.pdf)
+3. [Indoor Positioning for Visually Impaired People Based on Smartphones](https://link.springer.com/chapter/10.1007/978-3-319-08596-8_68) 
+4. [Analysis of a UWB Indoor Positioning System Based on Received Signal Strength](https://www.researchgate.net/profile/Klaus_Witrisal/publication/224699315_Analysis_of_a_UWB_Indoor_Positioning_System_Based_on_Received_Signal_Strength/links/5714ad0508aeff315ba36700.pdf)
 
 ## Methodology, Data Set and Experimental validation plan 
 * Methodology:
   1. **The indoor localization section:** We will be building on an existing work mentioned in the related works section ([item #1](http://www.guoanhong.com/papers/SUI19-Minuet.pdf)) to improve the 3d mapping of current UWB modules for indoor localization. 
-  2. **Earables and App development section:** An Android app would be used to interface between the mapping system and the user. Giving commands and feedbacks to the user using the microphone in earables  
-* Experimental Validation: 
-  1. Potential use of motion capture system for measuring the accuracy of our implemented UWB localization system. 
-* Data Set:
-  1.  Define a user study to collect data from visually impaired or blindfolded individuals to test out the system performance.
+  2. **App development section:** An Android app would be used to interface between the mapping system and the user.  
+  3. **MQTT Communication Protocol:** For receiving sensors data and setting up a CGI server for the purpose of the project.
+
 
 ## Work split between the different team members :
-  1. **Riyya** :  Android application development for using Earables and getting feedback from Earables
+  1. **Riyya** :  Android application development 
   2. **Amir** : UWB system setup, overall system integration
-  3. **Julian** :  UWB system setup, support on Android app development
+  3. **Julian** :  Server setup, support on Android app development
 
 
 ---
@@ -58,6 +58,9 @@ Also, because of the implementation of screen-reader software into mobile device
 ---
 ## Midterm Presentation
 [Midterm Presentation Slides](https://github.com/Amir-Omidfar/m202Fall19/blob/master/m202MidPointPresentation.pdf)
+
+## Final Presentation
+[Final Presentation Slides]()
 
 
 
