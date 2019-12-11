@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DirectMe</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="logo">
+                            <h2>M202_Fall19</h2>
+                            <h2>Final_Project</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <div id="Home"class="menu">
+                            <ul>
+                                <!--<li class="active"><a href="#Home">Home</a></li>-->
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="android.html">Server and App Development</a></li>
+                                <li><a href="analysis.html">Analysis</a></li>
+                                <li><a href="demo.html">Demo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        </br>
+        </br>
+        <section class="bg-text-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <img src="images/androidAppDev.png" height="700" width="1440" align="middle">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="blog-post-area">
+            <div class="container">
+                <div class="row">
+                    <div class="blog-post-area-style">
+                            <div class="col-md-12">
+                                <div class="single-post-big">
+                                    <div class="big-image">
+                                        <img src="images/appServer.png" alt="">
+                                    </div>
+                                    <div class="big-text">
+                                        <h3>App - Server Process Flow</h3>
+                                        <p>The android based application enables speech to text feature and let user ask for specific destination he desires to go. The other command this feature allows user to send is to adding new location to the list of current destination to which DirectMe can guide the user. The CGI (<a href="https://en.wikipedia.org/wiki/Common_Gateway_Interface">Common Gate Interface</a>) server receives the user's command. If the command has any of the words given in pre-defined "places.txt" file, it caculates the shortest path and send step by step instructions to guide the user. If the command received has the "add" it then takes the current position of the user and assigns it to the name it asks the user to say. The position and name of the new location is then added to places.txt file.</p>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pegination">
+            <div class="container">
+                <div class="row">
+                    <div class="blog-post-area-style">
+                            <div class="col-md-12">
+                                <div class="single-post-big">
+                                    <div class="big-image">
+                                        <img src="images/shortPath.png" alt="">
+                                    </div>
+                                    <div class="big-text">
+                                        <h3>The shortest path calculation</h3>
+                                        <p>The shortest path algorithm we applied uses a visibility graph. Our pre defined four nodes are around the conference table which is the main obstacle for our case. The start and goal position are the user's position at the start of navigation and the destination he specifies. The edges along this visibility graph are assigned in the way that they are not going through the obstacle (the conference table). From there the algorithm canculates the path the user needs to take. It then updates its commands as user walks towards the destination.</p>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pegination">
+            <div class="container">
+                <div class="row">
+                    <div class="blog-post-area-style">
+                            <div class="col-md-12">
+                                <div class="single-post-big">
+                                    <div class="big-image">
+                                        <img src="images/appExplained.png" alt="">
+                                    </div>
+                                    <div class="big-text">
+                                        <h3>The Application interface</h3>
+                                        <p>As shown in the picture, the interface is mainly voice command based. The two basic commands are "adding new location" by saying "add ..." and declaring the destination the user wants to go to. The command "Pause" let the user stops the navigation process and in order to resume he may double tap the screen.These three commnads are in the main menu of the app and that is where the user start his interaction with the app. The navigation commands are played to the user in explicit way of how many meters he needs to walk to how many degrees (Clockwise or Counter Clockwise) he needs to turn. While commands are played to the user from his smart phone. Tapping twice on the screen would take him to the command-only menu. There he would again have acces to "Add" and "Pause" commnads along with "Return" and "Cancel". Now with the "Return" command, it would go back to navigation mode (playing path guiding commands) and whether the user says "Cancel" it would stop the navigation process going back to the main menu.  </p>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pegination">
+            <div class="container">
+                <div class="row">
+                    <div class="blog-post-area-style">
+                            <div class="col-md-12">
+                                <div class="single-post-big">
+                                    <div class="big-image">
+                                        <img src="images/beacon.png" alt="">
+                                    </div>
+                                    <div class="big-text">
+                                        <h3>The Bluetooth Beacon</h3>
+                                        <p>As measured during the testing process, UWB positioning system has about 20-30 cm error rate. In order to make up for that, while in 20-40 cm proximity of the destination, we uses a Bluetooth beacon (placed on the target appliance/destination). Proportional to the signal strength received from the beacon, the smart phone (ideally placed on the user's wrist) vibrates. The closer to the destination it gets, the more vibration the phone gives off. This feature let the user search and find the destination when he gets within 20-40 cm range.</p>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+    
+                
+        
+        </section>
+        </br>
+        </br>
+        <footer class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="footer-bg">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="footer-menu">
+                                        <ul>
+                                            
+                                         <li><a href="index.html">Home</a></li>
+                                        <li><a href="android.html">Server and App Development</a></li>
+                                        <li><a href="analysis.html">Analysis</a></li>
+                                        <li><a href="demo.html">Demo</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="footer-icon">
+                                        <p><a href="https://www.linkedin.com/in/amirali-omidfar/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a><a href="https://github.com/Amir-Omidfar/m202Fall19" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></p>
+                                    </div>
+                                </div>
+                            </div> .
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/active.js"></script>
+</body>
+
+</html>
