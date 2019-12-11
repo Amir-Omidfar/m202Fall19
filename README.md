@@ -60,7 +60,11 @@ Also, because of the implementation of screen-reader software into mobile device
 [Midterm Presentation Slides](https://github.com/Amir-Omidfar/m202Fall19/blob/master/m202MidPointPresentation.pdf)
 
 ## Final Presentation
-[Final Presentation Slides]()
+[Final Presentation Slides](https://github.com/Amir-Omidfar/m202Fall19/blob/master/m202FinalPresentation.pdf)
+## Demos
+1. [Final Demo](https://www.youtube.com/watch?v=ApVRi0yR0JU)
+2. [midterm Localization Demo](https://youtu.be/F7td2ZKHgfw)
+3. [midterm Pose Estimation Demo](https://youtu.be/7uLrQgauLgg)
 
 
 
