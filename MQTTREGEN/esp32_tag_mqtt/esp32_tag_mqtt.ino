@@ -1,15 +1,5 @@
 /*
-  Basic ESP32 MQTT example
-  This sketch demonstrates the capabilities of the pubsub library in combination
-  with the ESP32 board/library.
-  It connects to an MQTT server then:
-  - publishes "connected to MQTT" to the topic "outTopic"
-  - subscribes to the topic "inTopic", printing out messages
-    it receives. NB - it assumes the received payloads are strings not binary
-  - If the "ON" payload is send to the topic "inTopic" , LED will be turned on, and acknowledgement will be send to Topic "outTopic"
-  - If the "OFF" payload is send to the topic "inTopic" , LED will be turned OFF, and acknowledgement will be send to Topic "outTopic"
-  It will reconnect to the server if the connection is lost using a
-  reconnect function.
+  ESP32S3 Dev Module MQTT with DW3000 with ST32 AT commands enabled
 */
 // User config          ------------------------------------------
 
