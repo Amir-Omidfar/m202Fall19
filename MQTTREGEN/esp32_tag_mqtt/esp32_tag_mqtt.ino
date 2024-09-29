@@ -116,13 +116,13 @@ void callback(char* topic, byte* payload, unsigned int length) {   //callback in
   }
   if ((char)payload[0] == 'O' && (char)payload[1] == 'N') //on
   {
-    digitalWrite(LED, HIGH);
+    //digitalWrite(LED, HIGH);
     SERIAL_LOG.println("on");
     client.publish("outTopic", "LED turned ON");
   }
   else if ((char)payload[0] == 'O' && (char)payload[1] == 'F' && (char)payload[2] == 'F') //off
   {
-    digitalWrite(LED, LOW);
+    //digitalWrite(LED, LOW);
     SERIAL_LOG.println(" off");
     client.publish("outTopic", "LED turned OFF");
   }
