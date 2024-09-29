@@ -96,7 +96,8 @@ void loop()
   {
     reconnect();
   }
-
+  client.publish("userLoc",  "hi");
+  delay(1000);
   client.loop();
 }
 

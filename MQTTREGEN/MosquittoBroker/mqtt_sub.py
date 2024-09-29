@@ -17,6 +17,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     client.subscribe("test_topic")
+    client.subscribe("userLoc")
 
     try:
         print("Press CTRL+C to exit...")
