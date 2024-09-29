@@ -24,10 +24,10 @@
 #endif
 #include <PubSubClient.h>
 
-const char* mqtt_server = "172.20.10.11"; //mqtt server
-const char* ssid = "Amirali_s_phone";
-const int port = 3000;
-const char* password = "13731994";
+const char* mqtt_server = "10.0.0.239"; //mqtt server
+const char* ssid = "PishiDino";
+const int port = 8883;
+const char* password = "8185102546";
 
 WiFiClient espClient;
 PubSubClient client(espClient); //lib required for mqtt
@@ -40,7 +40,7 @@ void setup()
   digitalWrite(LED, LOW);
   WiFi.begin(ssid, password);
   Serial.println("connected");
-  client.setServer(mqtt_server, 3000);//connecting to mqtt server
+  client.setServer(mqtt_server, 8883);//connecting to mqtt server
   client.setCallback(callback);
   //delay(5000);
   connectmqtt();
@@ -109,8 +109,8 @@ void connectmqtt()
     // Once connected, publish an announcement...
 
     // ... and resubscribe
-    client.subscribe("inTopic"); //topic=Demo
-    client.publish("outTopic",  "connected to MQTT");
+    client.subscribe("test_topic"); //topic=Demo
+    client.publish("userLoc",  "connected to MQTT");
 
     if (!client.connected())
     {
