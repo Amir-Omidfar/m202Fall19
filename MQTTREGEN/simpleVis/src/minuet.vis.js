@@ -132,7 +132,7 @@ $(document).ready(function() {
             console.log("Connected ");
             //mqtt.subscribe("userLoc");
             //mqtt.subscribe("esp8266")
-            mqtt.subscribe("test_topic")
+            mqtt.subscribe("tagPos")
             message = new Paho.MQTT.Message("mqtt Start");
             message.destinationName = "jsStatus";
             mqtt.send(message);

@@ -2,13 +2,13 @@ import sys
 
 import paho.mqtt.client as paho
 
-port = 1883
+port = 8883
 
 def message_handling(client, userdata, msg):
     print(f"{msg.topic}: {msg.payload.decode()}")
 
 if __name__ == "__main__":
-    port = int(sys.argv[1])
+    
     client = paho.Client(paho.CallbackAPIVersion.VERSION2)
     client.on_message = message_handling
 
@@ -16,8 +16,9 @@ if __name__ == "__main__":
         print("Couldn't connect to the mqtt broker")
         sys.exit(1)
 
-    client.subscribe("outTopic")
-    client.subscribe("userLoc")
+    
+    client.subscribe("tagDistance")
+    client.subscribe("tagPos")
 
     try:
         print("Press CTRL+C to exit...")

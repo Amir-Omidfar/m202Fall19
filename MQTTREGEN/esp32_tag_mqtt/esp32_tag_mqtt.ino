@@ -59,7 +59,7 @@ void reconnect() {
     if (client.connect("ESP32_UWB Client")) {
       //Serial.println("connected");
       // Once connected, publish an announcement...
-      client.publish("userLoc", "ESP32 connected to MQTT");
+      client.publish("tagDistance", "ESP32 connected to MQTT");
       // ... and resubscribe
       client.subscribe("test-topic");
 
@@ -82,7 +82,7 @@ void connectmqtt()
 
     // ... and resubscribe
     client.subscribe("test_topic"); //topic=Demo
-    client.publish("userLoc",  "connected to MQTT");
+    client.publish("tagDistance",  "connected to MQTT");
 
     if (!client.connected())
     {
@@ -162,7 +162,7 @@ void loop()
             response += c;
     }
     
-    client.publish("userLoc",  mqttRes.c_str());
+    client.publish("tagDistance",  mqttRes.c_str());
     delay(1000);
 }
 
