@@ -16,7 +16,7 @@ if __name__ == "__main__":
         print("Couldn't connect to the mqtt broker")
         sys.exit(1)
 
-    client.subscribe("test_topic")
+    client.subscribe("outTopic")
     client.subscribe("userLoc")
 
     try:
