@@ -11,15 +11,23 @@ import numpy as np
 
 from queue import Queue
 
+from gj_elimination_calc import GaussJordonSolver
+
 port = 8883
 
-anchor_0_pos = np.array((0,0))
-anchor_1_pos = np.array((1900,1900))
-anchors_dist = np.linalg.norm(anchor_0_pos-anchor_1_pos)
+anc_0_pos = np.array((0,0,0))
+anc_1_pos = np.array((19,19,10))
+anc_2_pos = np.array((21,34,0))
+
+
+anchors_dist = np.linalg.norm(anc_0_pos-anc_1_pos)
 
 def get_ranges(range_string):
     return literal_eval(range_string[6:])
 
+
+#law of cosine
+"""
 def find_pos(r0,r1):
     ratio = (r0**2+anchors_dist**2-r1**2)/(2*int(anchors_dist)*r1)
     print("ratio: ", ratio)
@@ -28,9 +36,13 @@ def find_pos(r0,r1):
     theta = math.acos(ratio)
     tag_x = r1*math.cos(theta)
     tag_y = r1*math.sin(theta)
-    return (abs(1000000000000000*tag_x),tag_y)
+    return (tag_x,tag_y)
     #return r0+r1
+"""
 
+#1d position
+def find_x(r0,r1):
+    return r0
 
 def message_handling(client, userdata, msg):
     print(f"{msg.topic}: {msg.payload.decode()}")
@@ -67,8 +79,9 @@ def run():
     while True:
         msg = q.get()
         ranges = get_ranges(msg)
-        pos = find_pos(ranges[0],ranges[1])
-        formatted_pos = f"{str(pos[0])} 0 {str(pos[1])} 0 0 0 0"
+        #pos = find_pos(ranges[0],ranges[1])
+        pos = find_x(ranges[0],ranges[1])
+        formatted_pos = f"{str(10*pos)} 1000 2000 0 0 0 0"
         p_client.publish("tagPos",formatted_pos)
 
         # Process message here

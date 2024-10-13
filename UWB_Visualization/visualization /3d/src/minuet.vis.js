@@ -23,7 +23,7 @@ var fur_dict = {}
 var path_list = [];
 var data_stream =[];
 var dataflag = 0;
-var host = "192.168.1.40";
+var host = "10.0.0.239";
 var port = 9001;
 var flag = 0;
 var counter = 0;
@@ -130,7 +130,7 @@ $(document).ready(function() {
 
           function onConnect() {
             console.log("Connected ");
-            mqtt.subscribe("userLoc");
+            mqtt.subscribe("tagPos");
             mqtt.subscribe("esp8266")
             message = new Paho.MQTT.Message("mqtt Start");
             message.destinationName = "jsStatus";
